@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int countPrimeSetBits(int left, int right) {
+    const int n = 1e5+5;
+    vector<bool> is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    for (int i = 2; i <= n; i++) {
+        if (is_prime[i] && (long long)i * i <= n) {
+            for (int j = i * i; j <= n; j += i)
+                is_prime[j] = false;
+        }
+    }
+    int res = 0;
+    for(int i=left;i<=right;i++){
+            int cnt = __builtin_popcount(i);
+            if(is_prime[cnt]){
+                res++;
+            }
+    }
+    return res;
+
+
+    }
+};
